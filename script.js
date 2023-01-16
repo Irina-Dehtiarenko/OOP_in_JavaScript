@@ -2,34 +2,42 @@
 
 // // construction function(not array function)
 
-// const Person = function (firstName, birthYear) {
-//   // Instance properties
-//   this.firstName = firstName;
-//   this.birthYear = birthYear;
+const Person = function (firstName, birthYear) {
+  // Instance properties
+  this.firstName = firstName;
+  this.birthYear = birthYear;
 
-//   //   Bad practise - never created methods inside the construction function  - tworzy się za każdym razem tworzenia nowego objektu
-//   //   this.calcAge = function () {
-//   //     console.log(2037 - this.birthYear);
-//   //   };
-// };
+  //   Bad practise - never created methods inside the construction function  - tworzy się za każdym razem tworzenia nowego objektu
+  //   this.calcAge = function () {
+  //     console.log(2037 - this.birthYear);
+  //   };
+};
 
-// const iryna = new Person('Iryna', 1998); //it is an instance of person
-// console.log(iryna);
+const iryna = new Person('Iryna', 1998); //it is an instance of person
+console.log(iryna);
 
 // // 1. New {} is created
 // // 2. function is called, this = {}
 // // 3. {} linked to ptototype
 // // 4. function autometicaly return{}
 
-// const matilda = new Person('Matilda', 2017);
-// const jack = new Person('Jack', 1975);
+const matilda = new Person('Matilda', 2017);
+const jack = new Person('Jack', 1975);
 
-// console.log(matilda, jack);
+console.log(matilda, jack);
 
-// const jay = 'Jay';
-// console.log(iryna instanceof Person); //true
-// console.log(jay instanceof Person); //false
+const jay = 'Jay';
+console.log(iryna instanceof Person); //true
+console.log(jay instanceof Person); //false
 
+// Static methods
+Person.hey = function () {
+  console.log(`Hey there!`);
+  console.log(this);
+};
+Person.hey();
+// is not inherited
+// iryna.hey()//nie zadziała
 // // Prototypes
 // console.log(Person.prototype); //tutaj już istnieje metoda calcAge()
 
@@ -138,8 +146,9 @@ class PersonCL {
     this.fullName = fullName;
     this.birthYear = birthYear;
   }
-
+  // instance method
   // Methods will be added to .prototype property
+
   calcAge() {
     console.log(2037 - this.birthYear);
   }
@@ -161,6 +170,12 @@ class PersonCL {
   get fullName() {
     return this._fullName;
   }
+
+  // Static method in Class
+  static hey() {
+    console.log(`Hey there!`);
+    console.log(this);
+  }
 }
 
 const jessica = new PersonCL('Jessica Davis', 1996); //constructor jest automatycznie przechwycony
@@ -178,6 +193,8 @@ jessica.greet();
 // 1. Classes are not hoisted
 // 2. Classes are first-class citizes
 // 3. Classes are executed in strict mode
+// wywołanie statycznej metody:
+PersonCL.hey();
 
 // GETTERS AND SETTERS
 //funkcje, które pobierają  i ustawiają wartość
