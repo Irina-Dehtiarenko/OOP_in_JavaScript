@@ -134,8 +134,8 @@ const PersonCL1 = class {};
 
 // class declaration
 class PersonCL {
-  constructor(firstName, birthYear) {
-    this.firstName = firstName;
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
     this.birthYear = birthYear;
   }
 
@@ -144,16 +144,32 @@ class PersonCL {
     console.log(2037 - this.birthYear);
   }
   greet() {
-    console.log(`Hej ${this.firstName}`);
+    console.log(`Hej ${this.fullName}`);
+  }
+
+  // Getters, setters
+  get age() {
+    return 2037 - this.birthYear;
+  }
+  // wykona się odrazu, jeśloi mamy taką właściwość zaimplementowaną wcześniej
+  // Set a property that alredy exists
+  set fullName(name) {
+    console.log(name);
+    if (name.includes(' ')) this._fullName = name;
+    else alert(`${name} is not a full name!`);
+  }
+  get fullName() {
+    return this._fullName;
   }
 }
 
-const jessica = new PersonCL('Jessica', 1996); //constructor jest automatycznie przechwycony
+const jessica = new PersonCL('Jessica Davis', 1996); //constructor jest automatycznie przechwycony
 
 console.log(jessica);
 jessica.calcAge(); //41
 console.log(jessica.__proto__ === PersonCL.prototype);
-
+// using get
+console.log(jessica.age);
 // PersonCL.prototype.greet = function () {
 //   console.log(`Hej ${this.firstName}`);
 // };
@@ -162,3 +178,28 @@ jessica.greet();
 // 1. Classes are not hoisted
 // 2. Classes are first-class citizes
 // 3. Classes are executed in strict mode
+
+// GETTERS AND SETTERS
+//funkcje, które pobierają  i ustawiają wartość
+
+const walter = new PersonCL('Walter White', 1965);
+// walter.fullName - > 'Walter White'
+
+// walter._fullName - > 'Walter White'
+
+const account = {
+  owner: 'jonas',
+  movements: [200, 530, 120, 300],
+
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+console.log(account.latest);
+// account.latest(50)
+account.latest = 50;
+console.log(account.movements);
