@@ -174,7 +174,7 @@ class PersonCL {
   // Static method in Class
   static hey() {
     console.log(`Hey there!`);
-    console.log(this);
+    console.log(this); //to jest clasa
   }
 }
 
@@ -220,3 +220,31 @@ console.log(account.latest);
 // account.latest(50)
 account.latest = 50;
 console.log(account.movements);
+
+// Objects.create
+
+// prototyp dla dziedziczonych metod
+const PersonProto = {
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  // similar to constuctor
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+// nowy object, który ma dostęp do tego prototypu
+const steven = Object.create(PersonProto);
+console.log(steven);
+steven.name = 'Steven';
+steven.birthYear = 2002;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto); //true
+
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah', 1979);
+sarah.calcAge();
