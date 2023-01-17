@@ -122,132 +122,132 @@ Person.hey();
 //   this.speed += 10;
 //   console.log(`${this.make} is going at ${this.speed}km/h`);
 // };
-// Car.prototype.brake = function () {
-//   this.speed -= 5;
-//   console.log(`${this.make} is going at ${this.speed}km/h`);
-// };
-// const bmw = new Car('BMW', 120);
-// const mercedes = new Car('Mercedes', 95);
-// console.log(bmw, mercedes);
-// bmw.accelerate();
-// bmw.accelerate();
-// mercedes.accelerate();
-// mercedes.accelerate();
-// bmw.brake();
-// mercedes.brake();
+// // Car.prototype.brake = function () {
+// //   this.speed -= 5;
+// //   console.log(`${this.make} is going at ${this.speed}km/h`);
+// // };
+// // const bmw = new Car('BMW', 120);
+// // const mercedes = new Car('Mercedes', 95);
+// // console.log(bmw, mercedes);
+// // bmw.accelerate();
+// // bmw.accelerate();
+// // mercedes.accelerate();
+// // mercedes.accelerate();
+// // bmw.brake();
+// // mercedes.brake();
 
-// ES6 CLASSES (class is special type of functions)
-//class expretion
-const PersonCL1 = class {};
+// // ES6 CLASSES (class is special type of functions)
+// //class expretion
+// const PersonCL1 = class {};
 
-// class declaration
-class PersonCL {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
-  // instance method
-  // Methods will be added to .prototype property
+// // class declaration
+// class PersonCL {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+//   // instance method
+//   // Methods will be added to .prototype property
 
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  }
-  greet() {
-    console.log(`Hej ${this.fullName}`);
-  }
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet() {
+//     console.log(`Hej ${this.fullName}`);
+//   }
 
-  // Getters, setters
-  get age() {
-    return 2037 - this.birthYear;
-  }
-  // wykona się odrazu, jeśloi mamy taką właściwość zaimplementowaną wcześniej
-  // Set a property that alredy exists
-  set fullName(name) {
-    console.log(name);
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
-  get fullName() {
-    return this._fullName;
-  }
+//   // Getters, setters
+//   get age() {
+//     return 2037 - this.birthYear;
+//   }
+//   // wykona się odrazu, jeśloi mamy taką właściwość zaimplementowaną wcześniej
+//   // Set a property that alredy exists
+//   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+//   get fullName() {
+//     return this._fullName;
+//   }
 
-  // Static method in Class
-  static hey() {
-    console.log(`Hey there!`);
-    console.log(this); //to jest clasa
-  }
-}
+//   // Static method in Class
+//   static hey() {
+//     console.log(`Hey there!`);
+//     console.log(this); //to jest clasa
+//   }
+// }
 
-const jessica = new PersonCL('Jessica Davis', 1996); //constructor jest automatycznie przechwycony
+// const jessica = new PersonCL('Jessica Davis', 1996); //constructor jest automatycznie przechwycony
 
-console.log(jessica);
-jessica.calcAge(); //41
-console.log(jessica.__proto__ === PersonCL.prototype);
-// using get
-console.log(jessica.age);
-// PersonCL.prototype.greet = function () {
-//   console.log(`Hej ${this.firstName}`);
-// };
-jessica.greet();
+// console.log(jessica);
+// jessica.calcAge(); //41
+// console.log(jessica.__proto__ === PersonCL.prototype);
+// // using get
+// console.log(jessica.age);
+// // PersonCL.prototype.greet = function () {
+// //   console.log(`Hej ${this.firstName}`);
+// // };
+// jessica.greet();
 
 // 1. Classes are not hoisted
 // 2. Classes are first-class citizes
 // 3. Classes are executed in strict mode
 // wywołanie statycznej metody:
-PersonCL.hey();
+// PersonCL.hey();
 
 // GETTERS AND SETTERS
 //funkcje, które pobierają  i ustawiają wartość
 
-const walter = new PersonCL('Walter White', 1965);
-// walter.fullName - > 'Walter White'
+// const walter = new PersonCL('Walter White', 1965);
+// // walter.fullName - > 'Walter White'
 
-// walter._fullName - > 'Walter White'
+// // walter._fullName - > 'Walter White'
 
-const account = {
-  owner: 'jonas',
-  movements: [200, 530, 120, 300],
+// const account = {
+//   owner: 'jonas',
+//   movements: [200, 530, 120, 300],
 
-  get latest() {
-    return this.movements.slice(-1).pop();
-  },
+//   get latest() {
+//     return this.movements.slice(-1).pop();
+//   },
 
-  set latest(mov) {
-    this.movements.push(mov);
-  },
-};
-console.log(account.latest);
-// account.latest(50)
-account.latest = 50;
-console.log(account.movements);
+//   set latest(mov) {
+//     this.movements.push(mov);
+//   },
+// };
+// console.log(account.latest);
+// // account.latest(50)
+// account.latest = 50;
+// console.log(account.movements);
 
-// Objects.create
+// // Objects.create
 
-// prototyp dla dziedziczonych metod
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
+// // prototyp dla dziedziczonych metod
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   },
 
-  // similar to constuctor
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
+//   // similar to constuctor
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
 
-// nowy object, który ma dostęp do tego prototypu
-const steven = Object.create(PersonProto);
-console.log(steven);
-steven.name = 'Steven';
-steven.birthYear = 2002;
-steven.calcAge();
+// // nowy object, który ma dostęp do tego prototypu
+// const steven = Object.create(PersonProto);
+// console.log(steven);
+// steven.name = 'Steven';
+// steven.birthYear = 2002;
+// steven.calcAge();
 
-console.log(steven.__proto__ === PersonProto); //true
+// console.log(steven.__proto__ === PersonProto); //true
 
-const sarah = Object.create(PersonProto);
-sarah.init('Sarah', 1979);
-sarah.calcAge();
+// const sarah = Object.create(PersonProto);
+// sarah.init('Sarah', 1979);
+// sarah.calcAge();
 
 // Coding challenge #2
 // Your tasks:
@@ -258,46 +258,90 @@ sarah.calcAge();
 // Test data:
 // § Data car 1: 'Ford' going at 120 km/h
 // GOOD LUCK �
+///////////////////////////////////
 
-class CarCL {
-  constructor(make, speed) {
-    this.make = make;
-    this.speed = speed;
-  }
+// solution
+// class CarCL {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
 
-  accelerate() {
-    this.speed += 10;
-    console.log(`${this.make} is going at ${this.speed}km/h`);
-  }
-  brake() {
-    this.speed -= 5;
-    console.log(`${this.make} is going at ${this.speed}km/h`);
-  }
+//   accelerate() {
+//     this.speed += 10;
+//     console.log(`${this.make} is going at ${this.speed}km/h`);
+//   }
+//   brake() {
+//     this.speed -= 5;
+//     console.log(`${this.make} is going at ${this.speed}km/h`);
+//   }
 
-  get speedUS() {
-    return this.speed / 1.6; //mi/h
-  }
+//   get speedUS() {
+//     return this.speed / 1.6; //mi/h
+//   }
 
-  /*   set fullName(name) {
-    console.log(name);
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
-  get fullName() {
-    return this._fullName;
-  } */
+//   /*   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+//   get fullName() {
+//     return this._fullName;
+//   } */
 
-  set speedUS(speed) {
-    this.speed = speed * 1.6;
-  }
-}
+//   set speedUS(speed) {
+//     this.speed = speed * 1.6;
+//   }
+// }
 
-const ford = new CarCL('Ford', 120);
-console.log(ford.speedUS);
-ford.accelerate();
-ford.accelerate();
-ford.brake();
-console.log(ford.speedUS);
+// const ford = new CarCL('Ford', 120);
+// console.log(ford.speedUS);
+// ford.accelerate();
+// ford.accelerate();
+// ford.brake();
+// console.log(ford.speedUS);
 
-ford.speedUS = 50;
-console.log(ford);
+// ford.speedUS = 50;
+// console.log(ford);
+
+const PersonIN = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+PersonIN.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Linking prototypes
+Student.prototype = Object.create(PersonIN.prototype);
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const mike = new Student('Mike', 2020, 'Computer Science');
+console.log(mike);
+mike.introduce();
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+console.log(mike.__proto__.__proto__.__proto__);
+
+console.log(mike instanceof Student); //true
+
+console.log(mike instanceof PersonIN); //true - nie powinno być
+console.log(mike instanceof Object); //true
+
+console.dir(Student.prototype.constructor, 'before'); // PersonIN(firstName, birthYear)
+
+Student.prototype.constructor = Student;
+
+console.dir(Student.prototype.constructor, 'after'); //Student(firstName, birthYear, course)
+console.log(mike instanceof Person);
