@@ -462,30 +462,78 @@
 // ////////////////////////////////////////////
 // Inheritance between "classes" Objact.create:
 
-const PersonProto = {
-  calcAge() {
-    console.log(2037 - this.birthYear);
-  },
+// const PersonProto = {
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   },
 
-  init(firstName, birthYear) {
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-  },
-};
+//   init(firstName, birthYear) {
+//     this.firstName = firstName;
+//     this.birthYear = birthYear;
+//   },
+// };
 
-const steven = Object.create(PersonProto);
+// const steven = Object.create(PersonProto);
 
-const StudentProto = Object.create(PersonProto);
-StudentProto.init = function (firstName, birthYear, course) {
-  PersonProto.init.call(this, firstName, birthYear);
-  this.course = course;
-};
+// const StudentProto = Object.create(PersonProto);
+// StudentProto.init = function (firstName, birthYear, course) {
+//   PersonProto.init.call(this, firstName, birthYear);
+//   this.course = course;
+// };
 
-StudentProto.introduce = function () {
-  console.log(`My name is ${this.firstName} and I study ${this.course}`);
-};
+// StudentProto.introduce = function () {
+//   console.log(`My name is ${this.firstName} and I study ${this.course}`);
+// };
 
-const jays = Object.create(StudentProto);
-jays.init('Jay', 2010, 'Computer Science');
-jays.introduce();
-jays.calcAge();
+// const jays = Object.create(StudentProto);
+// jays.init('Jay', 2010, 'Computer Science');
+// jays.introduce();
+// jays.calcAge();
+
+// ////////////////////////////////////////////
+// Another class example
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.local = navigator.language;
+
+    console.log('Thanks for opening an account ' + owner);
+  }
+
+  // Public interface
+  deposit(val) {
+    this.movements.push(val);
+  }
+  withdraw(val) {
+    this.deposit(-val);
+  }
+
+  approveLoan(val) {
+    return true;
+  }
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan approved`);
+    }
+  }
+}
+
+const acc1 = new Account('Jonas', 'EUR', 1111);
+console.log(acc1);
+
+// // not a good idea
+// acc1.movements.push(250); // deposits
+// acc1.movements.push(-150); //withdraw
+
+// best idea:
+acc1.deposit(150);
+acc1.withdraw(80);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000); //nie powinniśmy mieć dostęp do tej metody
+console.log(acc1);
+console.log(acc1.pin); //nie powinien być dostępny tu
