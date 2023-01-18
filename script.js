@@ -2,40 +2,40 @@
 
 // // construction function(not array function)
 
-const Person = function (firstName, birthYear) {
-  // Instance properties
-  this.firstName = firstName;
-  this.birthYear = birthYear;
+// const Person = function (firstName, birthYear) {
+//   // Instance properties
+//   this.firstName = firstName;
+//   this.birthYear = birthYear;
 
-  //   Bad practise - never created methods inside the construction function  - tworzy się za każdym razem tworzenia nowego objektu
-  //   this.calcAge = function () {
-  //     console.log(2037 - this.birthYear);
-  //   };
-};
+//   //   Bad practise - never created methods inside the construction function  - tworzy się za każdym razem tworzenia nowego objektu
+//   //   this.calcAge = function () {
+//   //     console.log(2037 - this.birthYear);
+//   //   };
+// };
 
-const iryna = new Person('Iryna', 1998); //it is an instance of person
-console.log(iryna);
+// const iryna = new Person('Iryna', 1998); //it is an instance of person
+// console.log(iryna);
 
-// // 1. New {} is created
-// // 2. function is called, this = {}
-// // 3. {} linked to ptototype
-// // 4. function autometicaly return{}
+// // // 1. New {} is created
+// // // 2. function is called, this = {}
+// // // 3. {} linked to ptototype
+// // // 4. function autometicaly return{}
 
-const matilda = new Person('Matilda', 2017);
-const jack = new Person('Jack', 1975);
+// const matilda = new Person('Matilda', 2017);
+// const jack = new Person('Jack', 1975);
 
-console.log(matilda, jack);
+// console.log(matilda, jack);
 
-const jay = 'Jay';
-console.log(iryna instanceof Person); //true
-console.log(jay instanceof Person); //false
+// const jay = 'Jay';
+// console.log(iryna instanceof Person); //true
+// console.log(jay instanceof Person); //false
 
-// Static methods
-Person.hey = function () {
-  console.log(`Hey there!`);
-  console.log(this);
-};
-Person.hey();
+// // Static methods
+// Person.hey = function () {
+//   console.log(`Hey there!`);
+//   console.log(this);
+// };
+// Person.hey();
 // is not inherited
 // iryna.hey()//nie zadziała
 // // Prototypes
@@ -401,60 +401,91 @@ Person.hey();
 ////////////////////////////////////////////
 // Inheritance between classes ES6 classes:
 
-class PersonCL {
-  constructor(fullName, birthYear) {
-    this.fullName = fullName;
-    this.birthYear = birthYear;
-  }
+// class PersonCL {
+//   constructor(fullName, birthYear) {
+//     this.fullName = fullName;
+//     this.birthYear = birthYear;
+//   }
+//   calcAge() {
+//     console.log(2037 - this.birthYear);
+//   }
+//   greet() {
+//     console.log(`Hej ${this.fullName}`);
+//   }
+//   get age() {
+//     return 2037 - this.birthYear;
+//   }
+//   set fullName(name) {
+//     console.log(name);
+//     if (name.includes(' ')) this._fullName = name;
+//     else alert(`${name} is not a full name!`);
+//   }
+//   get fullName() {
+//     return this._fullName;
+//   }
+
+//   static hey() {
+//     console.log(`Hey there!`);
+//   }
+// }
+// // class StudentCL1 extends PersonCL {
+// // without any constructor function
+// // }
+// // const martha1 = new StudentCL('Martha Jones', 2012)
+
+// class StudentCL extends PersonCL {
+//   constructor(fullName, birthYear, course) {
+//     // Always needs to happen first
+//     super(fullName, birthYear);
+//     this.course = course;
+//   }
+
+//   introduce() {
+//     console.log(`My name is ${this.fullName} and I study ${this.course}`);
+//   }
+
+//   calcAge() {
+//     console.log(
+//       `I'm ${
+//         2037 - this.birthYear
+//       } years old, but as a student I feel more like ${
+//         2037 - this.birthYear + 10
+//       }`
+//     );
+//   }
+// }
+
+// const martha = new StudentCL('Martha Jones', 2012, 'Computer Science');
+// martha.introduce();
+// martha.calcAge();
+
+// ////////////////////////////////////////////
+// Inheritance between "classes" Objact.create:
+
+const PersonProto = {
   calcAge() {
     console.log(2037 - this.birthYear);
-  }
-  greet() {
-    console.log(`Hej ${this.fullName}`);
-  }
-  get age() {
-    return 2037 - this.birthYear;
-  }
-  set fullName(name) {
-    console.log(name);
-    if (name.includes(' ')) this._fullName = name;
-    else alert(`${name} is not a full name!`);
-  }
-  get fullName() {
-    return this._fullName;
-  }
+  },
 
-  static hey() {
-    console.log(`Hey there!`);
-  }
-}
-// class StudentCL1 extends PersonCL {
-// without any constructor function
-// }
-// const martha1 = new StudentCL('Martha Jones', 2012)
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
 
-class StudentCL extends PersonCL {
-  constructor(fullName, birthYear, course) {
-    // Always needs to happen first
-    super(fullName, birthYear);
-    this.course = course;
-  }
+const steven = Object.create(PersonProto);
 
-  introduce() {
-    console.log(`My name is ${this.fullName} and I study ${this.course}`);
-  }
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
 
-  calcAge() {
-    console.log(
-      `I'm ${
-        2037 - this.birthYear
-      } years old, but as a student I feel more like ${
-        2037 - this.birthYear + 10
-      }`
-    );
-  }
-}
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
 
-const martha = new StudentCL('Martha Jones', 2012, 'Computer Science');
-martha.introduce();
-martha.calcAge();
+const jays = Object.create(StudentProto);
+jays.init('Jay', 2010, 'Computer Science');
+jays.introduce();
+jays.calcAge();
