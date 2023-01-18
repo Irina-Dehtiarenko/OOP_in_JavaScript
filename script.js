@@ -493,30 +493,36 @@
 // ////////////////////////////////////////////
 // Another class example
 
+// ////////////////////////////////////////////
+// Encapsulation
 class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
-    this.movements = [];
+    this._pin = pin;
+    //protected property
+    this._movements = [];
     this.local = navigator.language;
 
     console.log('Thanks for opening an account ' + owner);
   }
 
   // Public interface
+  getMovements() {
+    return this._movements;
+  }
   deposit(val) {
-    this.movements.push(val);
+    this._movements.push(val);
   }
   withdraw(val) {
     this.deposit(-val);
   }
 
-  approveLoan(val) {
+  _approveLoan(val) {
     return true;
   }
   requestLoan(val) {
-    if (this.approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan approved`);
     }
@@ -527,13 +533,16 @@ const acc1 = new Account('Jonas', 'EUR', 1111);
 console.log(acc1);
 
 // // not a good idea
-// acc1.movements.push(250); // deposits
-// acc1.movements.push(-150); //withdraw
+// acc1._movements.push(250); // deposits
+// acc1._movements.push(-150); //withdraw
 
 // best idea:
 acc1.deposit(150);
 acc1.withdraw(80);
 acc1.requestLoan(1000);
 acc1.approveLoan(1000); //nie powinniśmy mieć dostęp do tej metody
+
+//Better way:
+console.log(acc1.getMovements());
 console.log(acc1);
 console.log(acc1.pin); //nie powinien być dostępny tu
